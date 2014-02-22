@@ -2,8 +2,11 @@ PHP Solution
 =========
 
 /anagram.php
+
 Enter anagram: cat
+
 Enter word: actor
+
 bool(true)
 
 ./anagram.php
