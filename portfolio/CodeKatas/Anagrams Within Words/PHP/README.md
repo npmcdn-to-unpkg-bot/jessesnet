@@ -1,9 +1,9 @@
 PHP Solution
 =========
 
-/anagram.php
-Enter anagram: cat
-Enter word: actor
+/anagram.php<br />
+Enter anagram: cat<br/>
+Enter word: actor<br/>
 bool(true)
 
 ./anagram.php
