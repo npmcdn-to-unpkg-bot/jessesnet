@@ -5,18 +5,18 @@ PHP Solution
 Enter anagram: cat<br/>
 Enter word: actor<br/>
 bool(true)
-
-./anagram.php
-Enter anagram: car
-Enter word: actor
-bool(false)
-
-./anagram.php
-Enter anagram: top
-Enter word: boptin
-bool(true)
-
-./anagram.php
-Enter anagram: butt
-Enter word: tubtin
-bool(true)
+<br /><br />
+./anagram.php<br />
+Enter anagram: car<br />
+Enter word: actor<br />
+bool(false)<br />
+<br />
+./anagram.php<br />
+Enter anagram: top<br />
+Enter word: boptin<br />
+bool(true)<br />
+<br />
+./anagram.php<br />
+Enter anagram: butt<br />
+Enter word: tubtin<br />
+bool(true)<br />
