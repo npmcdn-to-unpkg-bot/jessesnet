@@ -1,0 +1,5 @@
+# vendor
+vendor
+
+# local config override
+app/config/config.php
