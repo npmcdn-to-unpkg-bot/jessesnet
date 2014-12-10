@@ -48,10 +48,13 @@ class Container
 	 */
 	private function buildContainer()
 	{
-		// rabbitmq connection
+		// rabbitmq client
 		$this->ContainerBuilder->register('rabbit-client')
 			 ->setFactoryClass("Broker\RabbitClient")
 	         ->setFactoryMethod("getInstance");
+
+		// rabbitmq handler
+		$this->ContainerBuilder->register('rabbit-handler', 'Broker\RabbitHandler');
 	}
 
 }

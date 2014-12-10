@@ -80,7 +80,7 @@ class RabbitClient
 
         /**
          * Set queue quality of service, prevents messages from queueing on slow workers
-         * @see https://www.rabbitmq.com/amqp-0-9-1-reference.html#class.basic
+         * @see   https://www.rabbitmq.com/amqp-0-9-1-reference.html#class.basic
          * @param long  - $prefetch_size sets how many messages can be queued on a worker
          * @param short - $prefetch_count sets the prefetch window
          * @param bool  - $global 

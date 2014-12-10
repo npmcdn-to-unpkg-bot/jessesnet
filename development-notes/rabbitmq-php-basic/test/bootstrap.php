@@ -1,7 +1,5 @@
 <?php
 
-use app;
-
 /**
  * Bootstrap Unit tests
  *

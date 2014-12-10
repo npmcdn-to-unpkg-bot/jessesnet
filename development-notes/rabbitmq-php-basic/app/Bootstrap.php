@@ -16,8 +16,10 @@ abstract class Bootstrap
 	 */
 	public static function init()
 	{
+		// required inits
 		self::initAutoload();
 		self::loadConfig();
+		self::initMemory();
 	}
 
 	/**
@@ -39,5 +41,26 @@ abstract class Bootstrap
 		} else {
 			require __DIR__ . "/config/config.development.php";
 		}
+	}
+
+	/**
+	 * Optional: Ensure garbage collection is on
+	 */
+	public static function initGC()
+	{
+		gc_enable();
+	}
+
+	/**
+	 * Optional: Override memory limit
+	 */
+	public static function initMemory($mb=512)
+	{
+		// only allow 256 - 2048 MB
+		if ($mb > 2048 || $mb < 256) {
+			return;
+		}
+	
+		ini_set("memory_limit", $mb . "M");
 	}
 }

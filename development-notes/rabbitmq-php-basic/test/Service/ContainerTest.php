@@ -24,4 +24,9 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->assertInstanceOf('Broker\RabbitClient', $this->DIContainer->get('rabbit-client'));
 	}
+
+	public function testRabbitHandler()
+	{
+		$this->assertInstanceOf('Broker\RabbitHandler', $this->DIContainer->get('rabbit-handler'));
+	}
 } 
