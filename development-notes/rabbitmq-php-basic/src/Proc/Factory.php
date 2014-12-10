@@ -26,16 +26,9 @@ class Factory
 	 */
 	public static function get($job_type, array $data)
 	{
-		// store XML config in memory
+		// get XML into memory
 		if (!count(self::$workers)) {
-			$config = simplexml_load_file(__DIR__.'/../../app/config/proc/workers.xml');
-
-			foreach ($config->worker as $worker) {
-				$class = (string) $worker->class;
-				$type  = (string) $worker->job_type;
-
-				self::$workers[$type] = $class;
-			}
+			self::loadConfig();	
 		}
 
 		// need flow control if cannot find worker
@@ -47,5 +40,20 @@ class Factory
 
 		// could do further dependency injection here
 		return new $class($data);
+	}
+
+	/**
+	 * Load XML into memory
+	 */
+	private static function loadConfig()
+	{	
+		$config = simplexml_load_file(__DIR__.'/../../app/config/proc/workers.xml');
+
+		foreach ($config->worker as $worker) {
+			$class = (string) $worker->class;
+			$type  = (string) $worker->job_type;
+
+			self::$workers[$type] = $class;
+		}
 	}
 }
