@@ -35,14 +35,15 @@ class RabbitHandler
 				$Worker = Factory::get($body['job_type'], $body);
 				$Worker->run();	
 			} catch (\Exception $e) {
-				// log errors, still acknowledge so continually dont attempt same job
+				// log errors
 				// @todo Use monolog
 			}
 			
 		} else {
-			// notify unable to process
+			// l og unable to process
 		}
 
+		// always acknowledge so jobs dont get stuck
 		$this->acknowledge();
 	}
 
