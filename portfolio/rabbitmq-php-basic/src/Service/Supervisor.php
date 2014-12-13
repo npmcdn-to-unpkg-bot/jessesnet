@@ -36,7 +36,7 @@ class Supervisor
 
 		// make sure there arent too many workers already running
 		if ($this->running() + $start > self::MAX_WORKERS) {
-			return;
+			$start = self::MAX_WORKERS - $this->running();
 		}
 		
 		for ($i=0; $i<$start; $i++) {

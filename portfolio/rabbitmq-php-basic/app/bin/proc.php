@@ -31,6 +31,7 @@ $Supervisor = new Service\Supervisor();
 if (isset($opts['c'])) {
 	switch ($opts['c']) {
 		case 'kill':
+			echo "Killed " . $Supervisor->running() . " processes" . PHP_EOL;
 			$Supervisor->kill();
 			break;
 		case 'status':
@@ -39,8 +40,13 @@ if (isset($opts['c'])) {
 			if (!isset($opts['p'])) {
 				die("Must specify number of processes".PHP_EOL);
 			}
+
+			// check how many new workers can be started
+			$available = Service\Supervisor::MAX_WORKERS - $Supervisor->running();
 			$Supervisor->start(intval($opts['p']));
-			echo "Started ".$opts['p']." processes" . PHP_EOL;
+
+			echo $opts['p'] < $available ? "Started ".$opts['p']." processes" : "Started ".$available." processes";
+			echo PHP_EOL;
 			break;
 	}
 }
