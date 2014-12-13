@@ -14,7 +14,7 @@
  * and checks if the character is in the anagram.  If character is in anagram a segment (length of anagram)
  * is taken from the word and validation is done to verify EACH letter of the anagram appears in the segment
  * 
- * COMPLEXITY: n^2 * m
+ * BIG O COMPLEXITY: n^2 * m
  *   n = length of word
  *   m = length of anagram
  * 

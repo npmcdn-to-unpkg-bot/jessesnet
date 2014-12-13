@@ -35,6 +35,7 @@ class RabbitClient
 
     /**
      * Create connections on instantiation
+     * @throws PhpAmqpLib\Exception\AMQPRuntimeException
      */
     private function __construct()
     {

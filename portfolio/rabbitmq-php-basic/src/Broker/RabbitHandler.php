@@ -36,11 +36,10 @@ class RabbitHandler
 				$Worker->run();	
 			} catch (\Exception $e) {
 				// log errors
-				// @todo Use monolog
 			}
 			
 		} else {
-			// l og unable to process
+			// log errors
 		}
 
 		// always acknowledge so jobs dont get stuck
