@@ -21,13 +21,15 @@ app\Bootstrap::initGC(); // ensure garbage collection
 $Container     = new Service\Container();
 $RabbitClient  = $Container->get('rabbit-client');
 $RabbitHandler = $Container->get('rabbit-handler');
+$Logger        = $Container->get('logger');
 
 $AMQChannel = $RabbitClient->getChannel();
 
 // hook to job queue
 $AMQChannel->basic_consume(RabbitClient::DEFAULT_QUEUE, '', false, false, false, false, [$RabbitHandler, 'consume']);
 
-echo "Listening to queue: " . RabbitClient::DEFAULT_QUEUE . PHP_EOL . PHP_EOL;
+// ouput worker started
+$Logger->info("Worker started on PID ".getmypid().", listening to... " . RabbitClient::DEFAULT_QUEUE);
 
 // listen for new jobs being added to the queue
 while(count($AMQChannel->callbacks)) {

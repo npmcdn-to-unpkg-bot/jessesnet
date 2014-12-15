@@ -20,6 +20,11 @@ class Logger
 	 */
 	private $Logger;
 
+	/**
+	 * @var string
+	 */
+	private $log_path;
+
 	public function __construct()
 	{
 		// set a default path, should be in a config not hard coded
@@ -32,7 +37,8 @@ class Logger
 	 */
 	public function path($path)
 	{
-		$this->Logger = new Monolog\Logger('RabbitApp');
+		$this->log_path = $path;
+		$this->Logger   = new Monolog\Logger('RabbitApp');
 		
 		// should verify path is writeable
 		$Handler   = new StreamHandler($path, Monolog\Logger::DEBUG);
@@ -60,4 +66,11 @@ class Logger
 		$this->Logger->addError($log);
 	}
 
+	/**
+	 * Remove log file
+	 */
+	public function delete()
+	{
+		@unlink($this->log_path);
+	}
 }

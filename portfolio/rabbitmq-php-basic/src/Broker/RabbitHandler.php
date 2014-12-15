@@ -48,14 +48,22 @@ class RabbitHandler
 			try {
 				$Worker = Factory::get($body['job_type'], $body);
 				$Worker->run();	
+
+				// success
+				$this->Logger->info("Worker ".getmypid()." finished job key " . $body['key'] . ", job type: " . $body['job_type']);
 			} catch (\Exception $e) {
 				// log errors
+				$this->Logger->error("Worker ".getmypid()." failed: " . $e->getMessage());
 			}
 			
 		} else {
-			// log errors
+			// log errors, include message json
+			$this->Logger->error("Worker ".getmypid()." failed: No job_type - " . $this->AMQPMessage->body);
 		}
 
+		// track peak memory of worker
+		// $this->Logger->info("Worker ".getmypid()." memory " . (memory_get_peak_usage(true)/(1024*1024)));
+			
 		// always acknowledge so jobs dont get stuck
 		$this->acknowledge();
 	}

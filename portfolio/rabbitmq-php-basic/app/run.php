@@ -24,10 +24,11 @@ require __DIR__.'/Bootstrap.php';
 Bootstrap::init();
 
 // limit total number of jobs
-define('MAX_JOBS', 1000000);
+define('MAX_JOBS', 100000);
 
-$Container     = new Service\Container();
-$RabbitClient  = $Container->get('rabbit-client');
+$Container    = new Service\Container();
+$RabbitClient = $Container->get('rabbit-client');
+$Logger       = $Container->get('logger');
 
 $AMQChannel = $RabbitClient->getChannel();
 
@@ -35,6 +36,10 @@ $AMQChannel = $RabbitClient->getChannel();
 $Supervisor = new Service\Supervisor();
 $Supervisor->kill();
 
+// remove the old logs
+$Logger->delete();
+
+// read cmd line options
 $opts = getopt("j:p:");
 
 // number of jobs, processes
