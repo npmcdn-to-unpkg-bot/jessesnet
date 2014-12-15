@@ -2,6 +2,7 @@
 
 namespace Broker;
 
+use Service;
 use Proc\Factory;
 
 /**
@@ -17,6 +18,19 @@ class RabbitHandler
 	 * @var PhpAmqpLib\Message\AMQPMessage
 	 */
 	private $AMQPMessage;
+
+	/**
+	 * @var Service\Logger
+	 */
+	private $Logger;
+
+	/**
+	 * @param Service\Logger
+	 */
+	public function __construct(Service\Logger $Logger)
+	{
+		$this->Logger = $Logger;
+	}
 
 	/**
 	 * Consume the RabbitMQ messages

@@ -13,7 +13,7 @@ use Monolog\Handler\StreamHandler;
  * @author  Jesse Cascio <jessecascio@gmail.com>
  * @see     jessesnet.com/development-notes
  */
-class Log
+class Logger
 {
 	/**
 	 * @var Monolog\Logger
@@ -33,6 +33,7 @@ class Log
 	public function path($path)
 	{
 		$this->Logger = new Monolog\Logger('RabbitApp');
+		
 		// should verify path is writeable
 		$Handler   = new StreamHandler($path, Monolog\Logger::DEBUG);
 		$Formatter = new LineFormatter(null, null, false, true);

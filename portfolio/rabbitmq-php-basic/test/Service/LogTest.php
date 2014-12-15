@@ -11,28 +11,28 @@ use Service;
  * @author  Jesse Cascio <jessecascio@gmail.com>
  * @see     jessesnet.com/development-notes
  */
-class SupervisorTest extends \PHPUnit_Framework_TestCase
+class LogTest extends \PHPUnit_Framework_TestCase
 {	
-	protected $Log;
+	protected $Logger;
 
 	protected function setUp()
 	{
-		$DIContainer = new Service\Container();
-		$this->Log   = $DIContainer->get('logger');
+		$DIContainer  = new Service\Container();
+		$this->Logger = $DIContainer->get('logger');
 		// wouldnt be hard coded here, in a config file
 		$this->path = __DIR__."/../../logs/test_".md5(microtime()).".log";
-		$this->Log->path($this->path);
+		$this->Logger->path($this->path);
 	}
 
 	public function testInfo()
 	{	
-		$this->Log->info('stuff');
+		$this->Logger->info('stuff');
 		$this->assertTrue(file_exists($this->path));
 	}
 
 	public function testError()
 	{	
-		$this->Log->error('stuff');
+		$this->Logger->error('stuff');
 		$this->assertTrue(file_exists($this->path));
 	}
 

@@ -54,10 +54,11 @@ class Container
 	         ->setFactoryMethod("getInstance");
 
 		// rabbitmq handler
-		$this->ContainerBuilder->register('rabbit-handler', 'Broker\RabbitHandler');
+		$this->ContainerBuilder->register('rabbit-handler', 'Broker\RabbitHandler')
+		     ->addArgument(new Logger());
 
 		// logger
-		$this->ContainerBuilder->register('logger', 'Service\Log');
+		$this->ContainerBuilder->register('logger', 'Service\Logger');
 	}
 
 }
