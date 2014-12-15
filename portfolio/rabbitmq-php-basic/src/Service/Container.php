@@ -55,6 +55,9 @@ class Container
 
 		// rabbitmq handler
 		$this->ContainerBuilder->register('rabbit-handler', 'Broker\RabbitHandler');
+
+		// logger
+		$this->ContainerBuilder->register('logger', 'Service\Log');
 	}
 
 }
