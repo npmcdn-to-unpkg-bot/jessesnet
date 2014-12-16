@@ -5,13 +5,13 @@ namespace test\Service;
 use Service;
 
 /**
- * Supervisor Test
+ * Logger Test
  *
  * @package Development Notes
  * @author  Jesse Cascio <jessecascio@gmail.com>
  * @see     jessesnet.com/development-notes
  */
-class LogTest extends \PHPUnit_Framework_TestCase
+class LoggerTest extends \PHPUnit_Framework_TestCase
 {	
 	protected $Logger;
 

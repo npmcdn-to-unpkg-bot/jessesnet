@@ -44,15 +44,7 @@ abstract class Bootstrap
 	}
 
 	/**
-	 * Optional: Ensure garbage collection is on
-	 */
-	public static function initGC()
-	{
-		gc_enable();
-	}
-
-	/**
-	 * Optional: Override memory limit
+	 * Override memory limit
 	 */
 	public static function initMemory($mb=512)
 	{
@@ -63,4 +55,13 @@ abstract class Bootstrap
 	
 		ini_set("memory_limit", $mb . "M");
 	}
+
+	/**
+	 * Optional: Ensure garbage collection is on
+	 */
+	public static function initGC()
+	{
+		gc_enable();
+	}
+	
 }

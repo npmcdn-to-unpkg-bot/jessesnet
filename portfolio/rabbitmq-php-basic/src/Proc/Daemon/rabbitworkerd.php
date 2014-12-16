@@ -16,7 +16,8 @@ use Broker\RabbitClient;
 
 require __DIR__.'/../../../app/Bootstrap.php';
 app\Bootstrap::init();
-app\Bootstrap::initGC(); // ensure garbage collection
+app\Bootstrap::initMemory(512); // limit memory
+app\Bootstrap::initGC();        // ensure garbage collection
 
 $Container     = new Service\Container();
 $RabbitClient  = $Container->get('rabbit-client');

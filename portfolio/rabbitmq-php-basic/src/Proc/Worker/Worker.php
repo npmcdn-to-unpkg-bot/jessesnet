@@ -3,7 +3,7 @@
 namespace Proc\Worker;
 
 /**
- * Worker
+ * Worker decorator
  *
  * @package Development Notes
  * @author  Jesse Cascio <jessecascio@gmail.com>

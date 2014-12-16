@@ -48,7 +48,6 @@ class RabbitHandler
 			try {
 				$Worker = Factory::get($body['job_type'], $body);
 				$Worker->run();	
-
 				// success
 				$this->Logger->info("Worker ".getmypid()." finished job key " . $body['key'] . ", job type: " . $body['job_type']);
 			} catch (\Exception $e) {
@@ -58,7 +57,7 @@ class RabbitHandler
 			
 		} else {
 			// log errors, include message json
-			$this->Logger->error("Worker ".getmypid()." failed: No job_type - " . $this->AMQPMessage->body);
+			$this->Logger->error("Worker ".getmypid()." failed: No job_type " . $this->AMQPMessage->body);
 		}
 
 		// track peak memory of worker
