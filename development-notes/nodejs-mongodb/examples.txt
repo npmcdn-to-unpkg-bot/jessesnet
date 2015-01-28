@@ -1,0 +1,19 @@
+
+find, findOne
+	- $gt, $lt
+	- regex, $exists
+	- $type
+	- $or / $and
+	- querying into an array
+	- $in and $all
+	- count
+	- cursors
+	- $set / $unset
+	- $pop, $push, $pull, $pushAll, $pullAll
+	- $addToSet
+	- upserts
+	- multi data
+	- removing data
+	- skip, limit, sort
+	- findAndModify
+	- 
