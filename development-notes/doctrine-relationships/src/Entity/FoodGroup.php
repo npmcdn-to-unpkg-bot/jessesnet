@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class FoodGroup
 {
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="id", type="boolean", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -33,7 +33,7 @@ class FoodGroup
     /**
      * Get id
      *
-     * @return boolean 
+     * @return integer 
      */
     public function getId()
     {

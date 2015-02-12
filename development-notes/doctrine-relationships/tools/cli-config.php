@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Used to generate doctrin entities from database
+ */
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 

@@ -8,23 +8,25 @@ use Doctrine\ORM\Mapping as ORM;
  * GroceryItem
  *
  * @ORM\Table(name="grocery_item")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Entity\Repository\GroceryItem")
  */
 class GroceryItem
 {
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="id", type="boolean", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="food_group", type="boolean", nullable=false)
+     * @ORM\Column(name="food_group", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="FoodGroup")
+     * @ORM\JoinColumn(name="food_group", referencedColumnName="id")
      */
     private $foodGroup;
 
@@ -40,7 +42,7 @@ class GroceryItem
     /**
      * Get id
      *
-     * @return boolean 
+     * @return integer 
      */
     public function getId()
     {
@@ -50,7 +52,7 @@ class GroceryItem
     /**
      * Set foodGroup
      *
-     * @param boolean $foodGroup
+     * @param integer $foodGroup
      * @return GroceryItem
      */
     public function setFoodGroup($foodGroup)
@@ -63,7 +65,7 @@ class GroceryItem
     /**
      * Get foodGroup
      *
-     * @return boolean 
+     * @return integer 
      */
     public function getFoodGroup()
     {
