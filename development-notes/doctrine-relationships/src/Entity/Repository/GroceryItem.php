@@ -8,19 +8,15 @@ use Doctrine\ORM\EntityRepository;
  * GroceryItem
  */
 class GroceryItem extends EntityRepository
-{
-    public function getGroceries($id)
+{     
+    public function getGroceryItem($name)
     {
-        try {
         $query = $this->getEntityManager()
                       ->createQuery(
                         'SELECT gi, fg FROM Entity\GroceryItem gi
-                         JOIN gi.foodGroup fg WHERE gi.id = :id'
-                    )->setParameter('id', $id);
+                         JOIN gi.foodGroup fg WHERE gi.name = :name'
+                     )->setParameter('name', $name);
         
         return $query->getSingleResult();
-        } catch (\Exception $e) {
-            var_dump($e->getMessage());
-        }
     }
 }

@@ -24,11 +24,9 @@ class GroceryItem
     /**
      * @var integer
      *
-     * @ORM\Column(name="food_group", type="integer", nullable=false)
-     * @ORM\ManyToOne(targetEntity="FoodGroup")
-     * @ORM\JoinColumn(name="food_group", referencedColumnName="id")
+     * @ORM\Column(name="food_group_id", type="integer", nullable=false)
      */
-    private $foodGroup;
+    private $foodGroupId;
 
     /**
      * @var string
@@ -37,6 +35,13 @@ class GroceryItem
      */
     private $name;
 
+    /**
+     * @var Entity\FoodGroup
+     *
+     * @ORM\ManyToOne(targetEntity="Entity\FoodGroup")
+     * @ORM\JoinColumn(name="food_group_id", referencedColumnName="id")
+     */
+    private $foodGroup;
 
 
     /**
@@ -50,26 +55,26 @@ class GroceryItem
     }
 
     /**
-     * Set foodGroup
+     * Set foodGroupId
      *
-     * @param integer $foodGroup
+     * @param integer $foodGroupId
      * @return GroceryItem
      */
-    public function setFoodGroup($foodGroup)
+    public function setFoodGroupId($foodGroupId)
     {
-        $this->foodGroup = $foodGroup;
+        $this->foodGroupId = $foodGroupId;
 
         return $this;
     }
 
     /**
-     * Get foodGroup
+     * Get foodGroupId
      *
      * @return integer 
      */
-    public function getFoodGroup()
+    public function getFoodGroupId()
     {
-        return $this->foodGroup;
+        return $this->foodGroupId;
     }
 
     /**
@@ -94,4 +99,28 @@ class GroceryItem
     {
         return $this->name;
     }
+
+    /**
+     * Set foodGroup
+     *
+     * @param Entity\FoodGroup $foodGroup
+     * @return GroceryItem
+     */
+    public function setFoodGroup($foodGroup)
+    {
+        $this->foodGroup = $foodGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get foodGroup
+     *
+     * @return Entity\FoodGroup 
+     */
+    public function getFoodGroup()
+    {
+        return $this->foodGroup;
+    }
+
 }

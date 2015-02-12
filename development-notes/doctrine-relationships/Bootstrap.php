@@ -32,7 +32,8 @@ class Bootstrap
 		];
 
 		$setupConfig = Setup::createAnnotationMetadataConfiguration($db['meta_data_config'], false, null, null, false);
-		
+		$setupConfig->setAutoGenerateProxyClasses(true);
+
 		return EntityManager::create($db['connection_info'], $setupConfig);
 	}
 }
