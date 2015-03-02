@@ -1,7 +1,7 @@
 PHP Solution
-=========
+=============
 
-/anagrams_within_words.php<br />
+./anagrams_within_words.php<br />
 Enter anagram: cat<br/>
 Enter word: actor<br/>
 bool(true)

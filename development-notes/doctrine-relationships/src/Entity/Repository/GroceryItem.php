@@ -9,13 +9,34 @@ use Doctrine\ORM\EntityRepository;
  */
 class GroceryItem extends EntityRepository
 {     
-    public function getGroceryItem($name)
-    {
+    public function getOneBy(array $search=[])
+    {   
+        $where = "";
+
+        if (count($search)) {
+            $wheres = [];
+
+            foreach ($search as $col=>$val) {
+
+                if (is_array($val)) {
+                    /**
+                     * @todo Finish
+                     */
+                    // $wheres[] = "gi.$col IN ('".implode("','", $val)."')";
+                } else {
+                    $wheres[] = "gi.$col=:$col";    
+                }
+                
+            }
+
+            $where = " WHERE " . implode(' AND ', $wheres);
+        }
+
         $query = $this->getEntityManager()
                       ->createQuery(
                         'SELECT gi, fg FROM Entity\GroceryItem gi
-                         JOIN gi.foodGroup fg WHERE gi.name = :name'
-                     )->setParameter('name', $name);
+                         JOIN gi.foodGroup fg' . $where
+                     )->setParameters($search);
         
         return $query->getSingleResult();
     }
