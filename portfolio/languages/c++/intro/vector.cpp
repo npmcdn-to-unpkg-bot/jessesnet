@@ -50,4 +50,3 @@ int main()
 	cout << holder[1] << "\n"; // this is ok 
 }
 
-

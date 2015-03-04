@@ -82,7 +82,7 @@ void variables()
 	const int dmv = 124;
 	constexpr double res = dmv * 2; // efficient, must be a constant expression
 
-	// signed ints
+	// unsigned ints, only +
 	int unsigned positive = 7;
 	int unsigned negative = -8; // prints as max int, ~4 trillion
 	// for tiny int w/ calcs
