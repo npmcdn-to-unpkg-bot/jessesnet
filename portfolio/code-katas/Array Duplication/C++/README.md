@@ -1,5 +1,5 @@
 PHP Solution
 =============
 
-./array_duplication<br />
+./out<br />
 
