@@ -1,4 +1,4 @@
-PHP Solution
+C++ Solution
 =============
 
 ./out<br />

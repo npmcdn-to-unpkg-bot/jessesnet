@@ -1,55 +1,31 @@
 #include <iostream>
-#include <vector>
+#include <array>
 using namespace std;
 
 // g++ -std=c++11 array_duplication.cpp -o out
 // ./out
 
-int array[] = {12342,923422,234278,23429,923422,23421,242342,242342};
+std::array<int,8> numbers = {12342,923422,234278,23429,923422,23421,242342,242342};
 
 int duplicate()
 {
-	int largest = 0;
-
-	for (int val : array) {
-		if (val > largest) {
-			largest = val;
+	// O(n^2) - could do better
+	for (int i=0; i<numbers.size(); i++) {
+		for (int j=0; j<numbers.size(); j++) {
+			if (i != j && numbers[i] == numbers[j]) {
+				return numbers[i];
+			}
 		}
 	}
 
-	// int* found = new int[largest]; // if allocation fails, an exception is thrown 
-	int *found = new (nothrow) int[largest];
-
-	if (found == nullptr) {
-		cout << "No memory\n";
-		delete[] found;
-		found=0;
-		return -1;
-	}
-
-	for (int val : array) {
-		if (found[val] == 1) {
-			delete[] found;
-			found=0;
-			return val;
-		}
-
-		found[val] = 1;
-	}
-
-	delete[] found;
-	found=0;
-	return -1;
+	throw 0;
 }
 
 int main()
 {
-	int dupe = duplicate();
-
-	if (dupe == -1) {
+	try {
+		cout << "Dupe found: " << duplicate() << "\n";
+	} catch(...) {
 		cout << "No duplicates\n";
-	} else {
-		cout << "Dupe found: " << dupe << "\n"; 
-	}
-	
+	}	
 }

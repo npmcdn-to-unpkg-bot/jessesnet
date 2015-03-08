@@ -27,3 +27,25 @@ int main()
 	cout << photos[-1] << "\n";	
 }
 
+/*
+Elements are sequentially stored in continuous memory
+in arrays. When an array is created, its size should be specified. Even though it may only store one
+element at first, the size is required because we have to allocate memory for all of the elements. Since
+there may be vacancies in arrays, they are not efficient in memory utilization.
+
+In order to improve space efficiency, dynamic arrays were developed. The class vector in the
+standard template library (STL) of C++ is one such example. Memory is allocated for a few elements in
+dynamic arrays at first. When the number of elements is greater than the capacity of a dynamic array,
+more memory is allocated (the capacity doubles when it has to enlarge the capacity of a vector in C++),
+existing elements are copied to the newly allocated space, and the previous memory is released. It
+reduces waste in memory, but many extra operations are required to enlarge capacity, so it has negative
+impact on time efficiency. 
+
+Therefore, it is better to reduce the times needed to enlarge the capacity of
+dynamic arrays. The type ArrayList in both C# and Java is similar to vector in C++.
+
+Because memory allocation for arrays is sequential, it only costs O(1) time to access to an element
+based on its index, and it is very efficient. A simple hash table can be implemented with an array to
+utilize its advantage of time efficiency. Each index is treated as a key and every element in an array is
+treated as a value, so an index and its corresponding element form a pair of key and value.
+*/
