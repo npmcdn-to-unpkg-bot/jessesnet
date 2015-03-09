@@ -9,12 +9,12 @@ using namespace std::chrono;
 // g++ -std=c++11 array_duplication.cpp -o out
 // ./out
 
-int m[4][4]=
+int m[4][14]=
 {
-    {1,2,8,14},
-	{2,4,9,12},
-	{4,7,10,13},
-	{6,8,11,15},
+    {1,2,8,14,17,38,47,48,56,58,69,73,81,90},
+	{2,4,9,12,15,23,29,34,48,51,52,78,88,91},
+	{4,7,8,12,45,67,88,91,92,93,94,95,96,99},
+	{6,8,9,15,34,35,45,47,57,58,67,69,78,86},
 };
 
 int first(int find);
@@ -31,7 +31,7 @@ int main()
 		cout << "Invalid input \n";
 		exit(1);
 	}
-	
+
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
 	try {
@@ -89,7 +89,7 @@ int first(int find)
 
 	// flatten the matrix
 	for (int i=0; i<4; i++) {
-    	for (int j=0; j<4; j++) {
+    	for (int j=0; j<14; j++) {
     		v.push_back(m[i][j]);
     	}
     }

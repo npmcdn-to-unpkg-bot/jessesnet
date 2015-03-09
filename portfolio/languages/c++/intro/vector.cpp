@@ -48,5 +48,14 @@ int main()
 	cout << holder[0] << "\n"; 
 	holder[1] = 13;
 	cout << holder[1] << "\n"; // this is ok 
+
+	// cant use subscript with string values
+	vector<string> v;
+	v.push_back("init");
+	v[1] = "seg faults";
+
+	// can init with a single value
+	vector<int> v(1);
+	v[0] = 213; // ok
 }
 
