@@ -25,6 +25,10 @@ int main()
 	cout << photos[0] << "\n";
 	photos[-1] = 342; // can have negative keys
 	cout << photos[-1] << "\n";	
+
+	// copy an array
+	std::array<string,5> arrayc;
+	std::copy(array1.begin(), array1.begin()+5, arrayc.begin());
 }
 
 /*

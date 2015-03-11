@@ -7,17 +7,17 @@ using namespace std;
 // ./name
 
 /*
-	Task - Given two sorted arrays, denoted as array1 and array2, please merge them into array1 and
-           keep the merged array sorted. Suppose there is sufficient vacant memory at the end of array1 
-           to accommodate elements of array2.
+	NEXT 
+		- Test different array sizes
+		- Do it with two unsorted arrays
 */
 
 int main()
 {
 	// less than means comes first
 	// capital letters considered greater than
-
-	std::array<string,10> array1;
+	
+	std::array<string,5> array1;
 	array1[0] = "apples";
 	array1[1] = "carrots";
 	array1[2] = "lettuce";
@@ -30,13 +30,42 @@ int main()
 	array2[2] = "couliflower";
 	array2[3] = "mayonese";
 	array2[4] = "olives";
-		
-	// dont want all 10 values
-	// std::array<string,10> arrayc = array1;
 	
-	std::array<string,5> arrayc;
-	std::copy(array1.begin(), array1.begin()+5, arrayc.begin());
+	std::array<string,10> merged;
 
+	int max1 = array1.size();
+	int max2 = array2.size();
+
+	int items = max1 + max2;
+	int sorted=0, i=0, j=0;
+
+	while (sorted < items) {
+
+		if (i >= max1) {
+			merged[sorted] = array2[j];
+			j++;
+		} else if (j >= max2) {
+			merged[sorted] = array1[i];
+			i++;
+		} else if (array1[i] < array2[j]) {
+			merged[sorted] = array1[i];
+			i++;
+		} else {
+			merged[sorted] = array2[j];
+			j++;
+		}
+
+		sorted++;
+	}
+	
+	int order = 1;
+
+	for (string fruit : merged) {
+		cout << order << ") " << fruit << "\n";
+		order++;
+	}
+
+	
 	return 1;
 }
 

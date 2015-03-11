@@ -27,9 +27,9 @@ $dupe = method1(0, $array);
 
 if ($dupe === false) {
     echo "(1) No Duplicates" . PHP_EOL;
+} else {
+    echo "Duplicate: " . $dupe . PHP_EOL;
 }
-
-echo "Duplicate: " . $dupe . PHP_EOL;
 
 // O(n)
 function method1($index, $array) 
@@ -57,7 +57,8 @@ $dupe = method1(0, $array);
 
 if ($dupe === false) {
     echo "(2) No Duplicates" . PHP_EOL;
+} else {
+    echo "Duplicate: " . $dupe . PHP_EOL;    
 }
 
-echo "Duplicate: " . $dupe . PHP_EOL;
 
