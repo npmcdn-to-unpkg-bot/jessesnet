@@ -15,6 +15,11 @@ using namespace std;
 	and using classes as aggregate data structures with private data and member functions.
 
 	In order to ensure that the class definition is the same in each file, structs (and classes) are usually defined in header files.
+
+	When building structs in a function, This function will actually make a copy of the ship local variable that it returns. 
+	This means that it will copy every field of the structure into a new variable, one by one.  Avoided with pointers
+
+	Structs are not passed by reference, again use pointers
 */
 
 // struct used to define custom data structures
