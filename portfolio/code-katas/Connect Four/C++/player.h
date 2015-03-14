@@ -1,12 +1,20 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <string> // uses std namespace
-
+/**
+ * Player
+ */
 struct Player {
 	int id;
 	std::string name;
-	char piece;
+	char token;
+
+	// @todo Check how to do statically
+	bool validName(std::string name)
+	{
+		// @todo use regex and string length
+		return true;
+	}
 };
 
 #endif
