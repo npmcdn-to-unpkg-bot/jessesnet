@@ -2,45 +2,50 @@
 #define GAME_H
 
 #include <iomanip>
+#include <exception>
 
 /**
  * Connect Four Game 
  */
 struct Game {
 
-	char** board;
-	int width;
-	int height;
-	int player = 0; // update to use pointers
 	const int pad = 6;
 	const char open = '_';
 
+	char** board;
+	int width;
+	int height;
+	
 	Player players[2];
+	Player *player;
+
 	GamePiece piece;
 
 	Game()
 	{
+		players[0].id = 1;
+		players[1].id = 2;
+
 		players[0].token = '+';
 		players[1].token = 'x';
 
-		// players[0].id    = 1; // was used with pointers
-		// players[1].id    = 2; // was used with pointers
+		// keep pointer on active player
+		player = players;
 	}
 
 	void destruct()
 	{
-		// free memory
+		// clean up
 	}
 
 	/**
 	 * Builds the game board array
+	 * @throws bool
 	 */
 	void buildBoard(int x=8, int y=8)
 	{
 		if (!validSize(x, y)) {
-			// @todo Update to use exceptions
-			std::cout << "Invalid board dimensions \n\n";
-			exit(1);
+			throw false;
 		}
 
 		width  = x;
@@ -87,6 +92,7 @@ struct Game {
 
 	/**
 	 * Add piece to column for current player
+	 * @throws bool
 	 */
 	void addPiece(int column)
 	{
@@ -96,18 +102,15 @@ struct Game {
 			if (board[i][column -1] == open) {
 				piece.xcord = column -1;
 				piece.ycord = i;
-				piece.token = players[player].token;
+				piece.token = player->token;
 				pieceset = true;
-				
 				break;
 			}
 		}
 
-		// make sure piece correctly registered
+		// ran out of vertical room
 		if (!pieceset) {
-			// @todo throw exception instead
-			std::cout << "\nSorry somebody broke the board\n\n";
-			exit(1);
+			throw false;
 		}
 
 		board[piece.ycord][piece.xcord] = piece.token;
@@ -139,9 +142,9 @@ struct Game {
 	bool vertical()
 	{
 		if (piece.ycord+3 < height && piece.ycord+2 < height && piece.ycord+1 < height) {
-			if (board[piece.ycord+1][piece.xcord] == players[player].token && 
-				board[piece.ycord+2][piece.xcord] == players[player].token && 
-				board[piece.ycord+3][piece.xcord] == players[player].token
+			if (board[piece.ycord+1][piece.xcord] == player->token && 
+				board[piece.ycord+2][piece.xcord] == player->token && 
+				board[piece.ycord+3][piece.xcord] == player->token
 			) {
 				return true;
 			}
@@ -157,21 +160,21 @@ struct Game {
 	{
 		int horiz = 1;
 
-		if (piece.xcord-1 >= 0 && board[piece.ycord][piece.xcord-1] == players[player].token) {
+		if (piece.xcord-1 >= 0 && board[piece.ycord][piece.xcord-1] == player->token) {
 			horiz++;
-			if (piece.xcord-2 >= 0 && board[piece.ycord][piece.xcord-2] == players[player].token) {
+			if (piece.xcord-2 >= 0 && board[piece.ycord][piece.xcord-2] == player->token) {
 				horiz++;
-				if (piece.xcord-3 >= 0 && board[piece.ycord][piece.xcord-3] == players[player].token) {
+				if (piece.xcord-3 >= 0 && board[piece.ycord][piece.xcord-3] == player->token) {
 					return true;
 				}
 			}
 		}
 		
-		if (piece.xcord+1 < width && board[piece.ycord][piece.xcord+1] == players[player].token) {
+		if (piece.xcord+1 < width && board[piece.ycord][piece.xcord+1] == player->token) {
 			horiz++;
-			if (piece.xcord+2 < width && board[piece.ycord][piece.xcord+2] == players[player].token) {
+			if (piece.xcord+2 < width && board[piece.ycord][piece.xcord+2] == player->token) {
 				horiz++;
-				if (piece.xcord+3 < width && board[piece.ycord][piece.xcord+3] == players[player].token) {
+				if (piece.xcord+3 < width && board[piece.ycord][piece.xcord+3] == player->token) {
 					return true;
 				}
 			}
@@ -192,21 +195,21 @@ struct Game {
 		int horiz = 1;
 
 		// downward diagnol
-		if (piece.xcord-1 >=0 && piece.ycord+1 < height && board[piece.ycord+1][piece.xcord-1] == players[player].token) {
+		if (piece.xcord-1 >=0 && piece.ycord+1 < height && board[piece.ycord+1][piece.xcord-1] == player->token) {
 			horiz++;
-			if (piece.xcord-2 >=0 && piece.ycord+2 < height && board[piece.ycord+2][piece.xcord-2] == players[player].token) {
+			if (piece.xcord-2 >=0 && piece.ycord+2 < height && board[piece.ycord+2][piece.xcord-2] == player->token) {
 				horiz++;
-				if (piece.xcord-3 >=0 && piece.ycord+3 < height && board[piece.ycord+3][piece.xcord-3] == players[player].token) {
+				if (piece.xcord-3 >=0 && piece.ycord+3 < height && board[piece.ycord+3][piece.xcord-3] == player->token) {
 					return true;
 				}
 			}
 		}
-		
-		if (piece.xcord+1 >= 0 && piece.ycord-1 >= 0 && board[piece.ycord-1][piece.xcord+1] == players[player].token) {
+
+		if (piece.xcord+1 >= 0 && piece.ycord-1 >= 0 && board[piece.ycord-1][piece.xcord+1] == player->token) {
 			horiz++;
-			if (piece.xcord+2 >=0 && piece.ycord-2 >= 0 && board[piece.ycord-2][piece.xcord+2] == players[player].token) {
+			if (piece.xcord+2 >=0 && piece.ycord-2 >= 0 && board[piece.ycord-2][piece.xcord+2] == player->token) {
 				horiz++;
-				if (piece.xcord+3 >=0 && piece.ycord-3 >= 0 && board[piece.ycord-3][piece.xcord+3] == players[player].token) {
+				if (piece.xcord+3 >=0 && piece.ycord-3 >= 0 && board[piece.ycord-3][piece.xcord+3] == player->token) {
 					return true;
 				}
 			}
@@ -221,11 +224,10 @@ struct Game {
 
 	/**
 	 * Next players turn
-	 * @todo Update to use pointers
 	 */
 	void nextPlayer()
 	{
-		player = (player == 0) ? 1 : 0;
+		player->id % 2 == 0 ? player-- : player++;
 	}
 
 	/**
@@ -256,16 +258,15 @@ struct Game {
 
 	/**
 	 * Show winner message
-	 * @todo Update to use pointer vs param
 	 */
-	void showWinner(std::string name)
+	void showWinner()
 	{
 		std::cout << "\n\n";
-		std::cout << "          " << "*************************";
+		std::cout << std::setw(pad) << "*************************";
 			
-		std::cout << "\n          *** " + name + " WINS!!!! ***\n";
+		std::cout << "\n" << std::setw(pad) << "*** " + player->name + " WINS!!!! ***\n";
 
-		std::cout << "          "  << "*************************";
+		std::cout << std::setw(pad) << "*************************";
 		std::cout << "\n\n";
 	}
 };

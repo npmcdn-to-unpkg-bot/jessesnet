@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits> 
 
 #include "player.h"
 #include "gamepiece.h"
@@ -12,6 +13,9 @@ using namespace std;
 void buildBoard(Game& game);
 void setPlayers(Game& game);
 
+/**
+ * Challenging game of Connect Four
+ */
 int main()
 {
 	Game game;
@@ -24,29 +28,34 @@ int main()
 
 	while (true) {		
 
-		int active = game.player; // use pointers
 		int column = 0;
 		bool valid = false;
 
 		do {
 			
-			cout << game.players[active].name << " (" << game.players[active].token << ") - Add to which column: ";
-			cin >> column ;
+			cout << game.player->name << " (" << game.player->token << ") - Add to which column: ";
+			cin >> column;
 
-			// letters breaking shat
+			if (cin.fail()) {
+				std::cin.clear(); 
+   				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+				continue;
+			}
 
-			if (column <= game.width && column > 0) {
-				valid = true;
-				// @todo add try/catch to prevent going over the top of the board
-				game.addPiece(column);
+			if (column <= game.width && column > 0) {			
+				try {
+					game.addPiece(column);
+					valid = true;
+				} catch (bool overflow) {
+					// ran out of vertical space, try again
+				} 
 			}
 
 		} while (!valid);
 
-		// check for winner
+		// check for connect four
 		if (game.connectFour()) {
-			// update to correctly use pointers here
-			game.showWinner(game.players[active].name);
+			game.showWinner();
 			game.displayBoard();
 			break;
 		}
@@ -58,12 +67,11 @@ int main()
 
 	// good habits
 	game.destruct();
-
-	// @todo Update to use Pointers, std::shared_ptr from #include <memory>
-	// Player *player = game.players;
-	// player->id % 2 == 0 ? player-- : player++;
 }
 
+/**
+ * Build the board from entered dimensions
+ */
 void buildBoard(Game& game)
 {
 	int x,y;
@@ -73,20 +81,46 @@ void buildBoard(Game& game)
 
 		cout << "\nEnter board width: ";
 		cin >> x;
+
+		if (cin.fail()) {
+			std::cin.clear(); 
+   			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+			continue;
+		}
+
 		cout << "Enter board height: ";
 		cin >> y;
 
+		if (cin.fail()) {
+			std::cin.clear(); 
+   			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+			continue;
+		}
+
 		if (game.validSize(x,y)) {
+			
 			validboard = true;
+
+			try {
+				game.buildBoard(x, y);
+			} catch (bool cantBuild) {
+				cout << "Error building the game board \n\n";
+				exit(1);
+			}
+
 		} else {
 			cout << "\nBoard width/height must be between 4 and 20 \n";
 		}
 
 	} while (!validboard);
 
-	game.buildBoard(x, y);
+	
+	
 }
 
+/**
+ * Set the players names
+ */
 void setPlayers(Game& game)
 {
 	string player1, player2;
@@ -98,6 +132,12 @@ void setPlayers(Game& game)
 		
 		cout << "Enter Player 1 Name: ";
 		cin >> player1;
+
+		if (cin.fail()) {
+			std::cin.clear(); 
+   			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+			continue;
+		}
 
 		if (game.validName(player1)) {
 			valid = true;
@@ -112,6 +152,12 @@ void setPlayers(Game& game)
 		
 		cout << "Enter Player 2 Name: ";
 		cin >> player2;
+
+		if (cin.fail()) {
+			std::cin.clear(); 
+   			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
+			continue;
+		}
 
 		if (game.validName(player2)) {
 			valid = true;
