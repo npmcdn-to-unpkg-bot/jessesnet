@@ -130,7 +130,7 @@ void setPlayers(Game& game)
 
 	do {
 		
-		cout << "Enter Player 1 Name: ";
+		cout << "Enter Player 1 Name (no spaces): ";
 		cin >> player1;
 
 		if (cin.fail()) {
@@ -150,7 +150,7 @@ void setPlayers(Game& game)
 
 	do {
 		
-		cout << "Enter Player 2 Name: ";
+		cout << "Enter Player 2 Name (no spaces): ";
 		cin >> player2;
 
 		if (cin.fail()) {
