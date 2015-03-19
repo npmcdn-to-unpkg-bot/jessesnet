@@ -9,29 +9,29 @@ namespace DataStructures
 template <class T>
 class LinkedList 
 {
-	Node<T> *current = NULL;
-	Node<T> *head = NULL; // last, freshest, element
-	Node<T> *tail = NULL; // first, oldest, element
+	Node<T> *active = NULL;
+	Node<T> *head   = NULL; 
+	Node<T> *tail   = NULL; // grow the tail
 
-	int listsize = 0;
+	int listsize  = 0;
+	int iteration = 0;
 
-	// each position stores an element
-	// positions are nodes
 	public:
-		// LinkedList<T>* first(); // can return this
-		// LinkedList<T>* last();
+		LinkedList<T>* reset();
    		
    		bool isEmpty();
 		int size();
+   		bool iterate();
+
+   		T read();
    		T first();
    		T last();
+
 		void insertFirst(T element);
 		void insertLast(T element);
 		void removeFirst();
 		void removeLast();
 		
-		void test();
-
 		// int before(int position);
 		// int after(int position);
 		// void insertBefore(int position, T element); // should these be after nodes ???
@@ -51,7 +51,58 @@ int LinkedList<T>::size()
 }
 
 template <class T>
+bool LinkedList<T>::iterate()
+{
+	if (!this->head || !this->active->next) {
+		return false;
+	}
+
+	if (this->iteration == 0) {
+		this->active = this->head;
+	} else {
+		this->active = this->active->next;
+	}
+
+	this->iteration++;
+
+	return true;
+}
+
+template <class T>
+LinkedList<T>* LinkedList<T>::reset()
+{
+	if (!this->head) {
+		throw false;
+	}
+
+	this->active    = head;
+	this->iteration = 0;
+
+	return this;
+}
+
+template <class T>
+T LinkedList<T>::read()
+{
+	if (!this->active) {
+		throw false;
+	}
+
+	return this->active->read();
+}
+
+template <class T>
 T LinkedList<T>::first()
+{
+	if (!this->head) {
+		throw false;
+	}
+
+	return this->head->read();
+}
+
+template <class T>
+T LinkedList<T>::last()
 {
 	if (!this->tail) {
 		throw false;
@@ -66,29 +117,16 @@ void LinkedList<T>::insertFirst(T data)
 	Node<T> *element = new Node<T>;
 	
 	element->set(data);
-	element->next = tail;
+	element->next = head;
 
-	this->current = element;
-	this->tail    = element;
+	this->active = element;
+	this->head   = element;
 	
-	if (!this->head) {
-		this->head = element;
+	if (!this->tail) {
+		this->tail = element;
 	}
 
 	this->listsize++;
-
-	// investigate implication of needing to delete pointer
-	// delete element;
-}
-
-template <class T>
-T LinkedList<T>::last()
-{
-	if (!this->head) {
-		throw false;
-	}
-
-	return this->head->read();
 }
 
 template <class T>
@@ -99,99 +137,21 @@ void LinkedList<T>::insertLast(T data)
 	element->set(data);
 	element->next = NULL;
 
-	this->head->next = element;
+	if (this->tail) {
+		this->tail->next = element; 
+	}
+	
+	if (!this->head) {
+		this->head = element;
+	}
 
-	this->current = element;
-	this->head    = element;
+	this->active = element;
+	this->tail   = element;
 	
 	this->listsize++;
-
-	// investigate implication of needing to delete pointer
-	// delete element;
+	// delete element; ??? needed
 }
 
-template <class T>
-void LinkedList<T>::test()
-{
-	std::cout << this->tail->read() << "\n";
-
-	Node<T> *next1 = this->tail->next;
-	std::cout << next1->read() << "\n";
-
-	Node<T> *next2 = next1->next;
-	std::cout << next2->read() << "\n";
-
-	Node<T> *next3 = next2->next;
-	std::cout << next3->read() << "\n";
-
-	Node<T> *next4 = next3->next;
-	std::cout << next4->read() << "\n";
-
-	Node<T> *next5 = next4->next;
-	std::cout << next5->read() << "\n";
-
-	/*
-	for (int i=0; i<this->listsize; i++) {
-		Node<T> *next = this->tail->next;
-		std::cout << next->read() << "\n";
-		delete next;
-	}
-	*/
 }
-
-/*
-template <class T>
-T LinkedList<T>::element()
-{
-	// could use, ->
-	return (*current).read();
-}
-
-template <class T>
-LinkedList<T>* LinkedList<T>::first()
-{
-	if (!tail) {
-		throw false;
-	}
-
-	current = tail;
-	return this;
-}
-
-template <class T>
-LinkedList<T>* LinkedList<T>::last()
-{
-	if (!head) {
-		throw false;
-	}
-
-	current = head;
-	return this;
-}
-
-template <class T>
-void LinkedList<T>::insert(T data)
-{
-	Node<T> *element = new Node<T>;
-	
-	element->set(data);
-	element->next = NULL;
-
-	this->current = element;
-	this->head    = element;
-	
-	if (!tail) {
-		this->tail = element;
-	}
-
-	this->listsize++;
-
-	// investigate implication of needing to delete pointer
-	// delete element;
-}
-*/
-
-}
-
 
 #endif
