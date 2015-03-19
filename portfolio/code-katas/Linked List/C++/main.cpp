@@ -4,6 +4,8 @@
 using namespace DataStructures;
 using namespace std;
 
+void iterate(LinkedList<int> list);
+
 int main()
 {
 	LinkedList<int> list;
@@ -15,6 +17,14 @@ int main()
 	list.insertFirst(2183);
 	list.insertFirst(2938);
 
+	// iterate(list);
+	while(list.reverse()) {
+		
+	}	
+}
+
+void iterate(LinkedList<int> list)
+{
 	while(list.iterate()) {
 		cout << list.read() << "\n";
 	};
@@ -27,4 +37,3 @@ int main()
 		
 	cout << "Single : " << list.reset()->read() << "\n";
 }
-

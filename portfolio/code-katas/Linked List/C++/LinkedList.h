@@ -1,6 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
+#include <stack>
 #include "Node.h"
 
 namespace DataStructures
@@ -13,6 +14,8 @@ class LinkedList
 	Node<T> *head   = NULL; 
 	Node<T> *tail   = NULL; // grow the tail
 
+	std::stack<T> stack;
+
 	int listsize  = 0;
 	int iteration = 0;
 
@@ -21,7 +24,9 @@ class LinkedList
    		
    		bool isEmpty();
 		int size();
+   		
    		bool iterate();
+   		bool reverse();
 
    		T read();
    		T first();
@@ -39,18 +44,6 @@ class LinkedList
 };
 
 template <class T>
-bool LinkedList<T>::isEmpty()
-{
-	return this->listsize == 0 ? true : false;
-}
-
-template <class T>
-int LinkedList<T>::size()
-{
-	return this->listsize;	
-}
-
-template <class T>
 bool LinkedList<T>::iterate()
 {
 	if (!this->head || !this->active->next) {
@@ -66,6 +59,12 @@ bool LinkedList<T>::iterate()
 	this->iteration++;
 
 	return true;
+}
+
+template <class T>
+bool LinkedList<T>::reverse()
+{
+	return false;
 }
 
 template <class T>
