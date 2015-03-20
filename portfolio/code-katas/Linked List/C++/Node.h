@@ -4,6 +4,7 @@
 namespace DataStructures
 {
 
+// could be struct since all properties are public
 template <class T>
 class Node 
 {

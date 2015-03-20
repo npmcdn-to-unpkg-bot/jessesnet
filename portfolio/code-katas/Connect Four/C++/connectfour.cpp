@@ -113,9 +113,6 @@ void buildBoard(Game& game)
 		}
 
 	} while (!validboard);
-
-	
-	
 }
 
 /**

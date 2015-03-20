@@ -2,7 +2,11 @@
 #define LINKEDLIST_H
 
 #include <stack>
+#include <algorithm>
+#include <vector>
+
 #include "Node.h"
+#include "NodeSort.h"
 
 namespace DataStructures
 {
@@ -33,6 +37,8 @@ class LinkedList
    		T first();
    		T last();
 
+   		void sort(bool asc);
+
 		void insertFirst(T element);
 		void insertLast(T element);
 		void removeFirst();
@@ -40,6 +46,7 @@ class LinkedList
 
 	private:
 		void buildStack();
+		bool sortFunction(Node<T>* node1, Node<T>* node2);
 };
 
 template <class T>
@@ -76,6 +83,43 @@ bool LinkedList<T>::reverse()
 	this->active = this->stack.top();
 	this->stack.pop();
 	
+	return true;
+}
+
+template <class T> 
+void LinkedList<T>::sort(bool asc=true)
+{
+	// try to create on the heap w/ new keyword
+	std::vector<Node<T>*> container;
+
+	this->reset();
+
+	while (this->iterate()) {
+		container.push_back(this->active);
+	}
+
+	std::sort (container.begin(), container.end(), NodeSort<T>());
+	
+	int size = container.size();
+
+	for(int i=0; i < size; i++){
+
+		if (i == 0) {
+			this->head = container[i];
+		}
+		if (i == (size-1)) {
+			this->tail = container[i];
+		}
+
+		container[i]->next = container[(i+1)] ? container[(i+1)] : NULL;
+	}
+
+	// delete[] container;
+}
+
+template <class T> // private
+bool LinkedList<T>::sortFunction(Node<T>* node1, Node<T>* node2)
+{
 	return true;
 }
 
@@ -176,6 +220,18 @@ void LinkedList<T>::insertLast(T data)
 	
 	this->listsize++;
 	// delete element; ??? needed
+}
+
+template <class T>
+bool LinkedList<T>::isEmpty()
+{
+	return this->listsize == 0 ? true : false;
+}
+
+template <class T>
+int LinkedList<T>::size()
+{
+	return this->listsize;
 }
 
 }
