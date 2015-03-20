@@ -18,8 +18,9 @@ int main()
 	list.insertFirst(2938);
 
 	// iterate(list);
+	
 	while(list.reverse()) {
-		
+		cout << list.read() << "\n";
 	}	
 }
 

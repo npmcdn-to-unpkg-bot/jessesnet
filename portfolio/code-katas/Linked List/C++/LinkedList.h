@@ -14,10 +14,11 @@ class LinkedList
 	Node<T> *head   = NULL; 
 	Node<T> *tail   = NULL; // grow the tail
 
-	std::stack<T> stack;
+	std::stack<Node<T>*> stack;
 
 	int listsize  = 0;
 	int iteration = 0;
+	bool stackset = false;
 
 	public:
 		LinkedList<T>* reset();
@@ -36,11 +37,9 @@ class LinkedList
 		void insertLast(T element);
 		void removeFirst();
 		void removeLast();
-		
-		// int before(int position);
-		// int after(int position);
-		// void insertBefore(int position, T element); // should these be after nodes ???
-		// void insertAfter(int position, T element); // after a node, insert this node
+
+	private:
+		void buildStack();
 };
 
 template <class T>
@@ -64,7 +63,30 @@ bool LinkedList<T>::iterate()
 template <class T>
 bool LinkedList<T>::reverse()
 {
-	return false;
+	if (!this->stackset) {
+		buildStack();
+		this->stackset = true;
+	}
+
+	if (this->stack.empty()) {
+		this->stackset = false;
+		return false;
+	}
+
+	this->active = this->stack.top();
+	this->stack.pop();
+	
+	return true;
+}
+
+template <class T> // private
+void LinkedList<T>::buildStack()
+{
+	this->reset();
+
+	while (this->iterate()) {
+		this->stack.push(this->active);
+	}
 }
 
 template <class T>
@@ -76,6 +98,11 @@ LinkedList<T>* LinkedList<T>::reset()
 
 	this->active    = head;
 	this->iteration = 0;
+	this->stackset  = false;
+
+	while (!this->stack.empty()) {
+		this->stack.pop();
+	}
 
 	return this;
 }
