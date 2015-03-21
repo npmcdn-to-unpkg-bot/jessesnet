@@ -87,7 +87,7 @@ bool LinkedList<T>::reverse()
 }
 
 template <class T> 
-void LinkedList<T>::sort(bool asc=true)
+void LinkedList<T>::sort(bool asc=true) // add desc option
 {
 	// try to create on the heap w/ new keyword
 	std::vector<Node<T>*> container;
