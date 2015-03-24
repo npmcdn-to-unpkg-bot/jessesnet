@@ -52,13 +52,18 @@ class LinkedList
 template <class T>
 bool LinkedList<T>::iterate()
 {
-	if (!this->head || !this->active->next) {
+	if (!this->head) {
 		return false;
 	}
 
 	if (this->iteration == 0) {
 		this->active = this->head;
 	} else {
+
+		if (!this->active->next) {
+			return false;
+		}
+		
 		this->active = this->active->next;
 	}
 
@@ -71,8 +76,7 @@ template <class T>
 bool LinkedList<T>::reverse()
 {
 	if (!this->stackset) {
-		buildStack();
-		this->stackset = true;
+		this->buildStack();
 	}
 
 	if (this->stack.empty()) {
@@ -114,6 +118,7 @@ void LinkedList<T>::sort(bool asc=true) // add desc option
 		container[i]->next = container[(i+1)] ? container[(i+1)] : NULL;
 	}
 
+	this->reset();
 	// delete[] container;
 }
 
@@ -131,6 +136,8 @@ void LinkedList<T>::buildStack()
 	while (this->iterate()) {
 		this->stack.push(this->active);
 	}
+
+	this->stackset = true;
 }
 
 template <class T>
@@ -140,13 +147,16 @@ LinkedList<T>* LinkedList<T>::reset()
 		throw false;
 	}
 
-	this->active    = head;
+	this->active    = this->head;
 	this->iteration = 0;
-	this->stackset  = false;
 
-	while (!this->stack.empty()) {
-		this->stack.pop();
+	if (this->stackset) {
+		while (!this->stack.empty()) {
+			this->stack.pop();
+		}
 	}
+	
+	this->stackset = false;
 
 	return this;
 }
@@ -219,7 +229,6 @@ void LinkedList<T>::insertLast(T data)
 	this->tail   = element;
 	
 	this->listsize++;
-	// delete element; ??? needed
 }
 
 template <class T>
