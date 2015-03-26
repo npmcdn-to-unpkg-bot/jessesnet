@@ -12,7 +12,7 @@ class fibonacci
     	System.out.print("Enter index [between 0 and "+(sequence.length-1)+"]: ");
     	int index = keyboard.nextInt();
     
-    	if (index >=0 && index < sequence.length) {
+    	if (index >=0) {
     		
     		// do work
             // System.out.println(sequence[index]);
@@ -23,6 +23,9 @@ class fibonacci
                 System.out.println("fibonacci number is 1");    
             } else {
 
+                /**
+                 * iterative
+                 */
                 long startTime = System.nanoTime();
                 long iterate  = iterative(index);
                 long endTime = System.nanoTime();
@@ -30,18 +33,47 @@ class fibonacci
 
                 System.out.println("fibonacci number (iterative) is " + iterate + ", took " + elapsed + "ms and "+memoryUsage()+" bytes"); 
 
+                /**
+                 * mathematically
+                 */
+                startTime = System.nanoTime();
+                long bint  = binet(index);
+                endTime = System.nanoTime();
+                elapsed = (endTime-startTime)/1000000;
+
+                System.out.println("fibonacci number (binet) is " + bint + ", took " + elapsed + "ms and "+memoryUsage()+" bytes");
+                
+                /**
+                 * recursive
+                 */
                 startTime = System.nanoTime();
                 long recurse  = recursively(index);
                 endTime = System.nanoTime();
                 elapsed = (endTime-startTime)/1000000;
 
                 System.out.println("fibonacci number (recursively) is " + recurse + ", took " + elapsed + "ms and "+memoryUsage()+" bytes");
+
             }
 
     	} else {
     		System.out.println("Out of bounds");
     	}
 
+    }
+
+    /**
+     * @see http://mathworld.wolfram.com/BinetsFibonacciNumberFormula.html
+     */
+    public static long binet(int index)
+    {
+        double root5 = Math.sqrt(5);
+        double term1 = Math.pow((1+root5), index);
+        double term2 = Math.pow((1-root5), index);
+        double term3 = Math.pow(2, index) * root5;
+        
+        double fibo = (term1-term2)/term3;
+
+        return (long) fibo;
     }
 
     public static long iterative(int index)
