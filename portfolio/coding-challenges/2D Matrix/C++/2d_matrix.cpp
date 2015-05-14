@@ -59,30 +59,9 @@ int main()
 	cout << "second() took " << step2 << "\n";
 }
 
-int second(int find)
-{
-	// start at the end, if find < start move to the next row
-	int len = (sizeof(m)/sizeof(*m));
-
-	for (int i=len; i>-1; --i) {
-		if (find == m[i][0]) {
-			return m[i][0];
-		}	
-		if (find < m[i][0]) {
-			continue;
-		}
-
-		int sub_len = (sizeof(m[i])/sizeof(*m[i]));
-		int *p = std::find (m[i], m[i]+sub_len, find);
-
-		if (p != m[i]+sub_len) {
-			return *p;
-		}
-	}
-
-	throw false;
-}
-
+/**
+ * First attempt
+ */
 int first(int find)
 {
 	vector<int> v;
@@ -108,4 +87,32 @@ int first(int find)
 
     throw false;
 }
+
+/**
+ * Second attempt
+ */
+int second(int find)
+{
+	// start at the end, if find < start move to the next row
+	int len = (sizeof(m)/sizeof(*m));
+
+	for (int i=len; i>-1; --i) {
+		if (find == m[i][0]) {
+			return m[i][0];
+		}	
+		if (find < m[i][0]) {
+			continue;
+		}
+
+		int sub_len = (sizeof(m[i])/sizeof(*m[i]));
+		int *p = std::find (m[i], m[i]+sub_len, find);
+
+		if (p != m[i]+sub_len) {
+			return *p;
+		}
+	}
+
+	throw false;
+}
+
 

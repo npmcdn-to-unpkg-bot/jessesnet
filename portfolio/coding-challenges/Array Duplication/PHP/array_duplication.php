@@ -48,8 +48,11 @@ function method1($index, $array)
     return method1(++$index, $array);
 }
 
+return;
+
 /**
  * Two
+ * @todo
  */
 $array = [923,378,295,932,48,481,472,582,492,572,481,583,58,43,21,93,27,48,32,48];
 
