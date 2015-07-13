@@ -1,0 +1,38 @@
+<html ng-app="myApp">
+
+<head>
+
+<script src="../angular.min.js"></script>
+<script src="../angular-route.min.js"></script>
+
+<script>
+
+	angular
+		.module('myApp', [])
+		.directive("intervalDirective", function($interval) {
+			
+			return {
+	            restrict: 'E',
+	            link: function(scope, element, attrs) {
+	            	
+	            	$interval(function() {
+	            		console.log("hitting...");
+	            	}, 1000);
+	            }
+	        };   
+
+		});
+
+</script>
+
+</head>
+
+<body>
+	
+Hello World!!! <br />
+
+<interval-directive />
+
+</body>
+
+</html>
