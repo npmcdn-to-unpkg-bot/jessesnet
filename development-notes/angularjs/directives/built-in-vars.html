@@ -34,7 +34,7 @@ Built ins - $index, $first, $last, $middle, $even, $odd
 <ul>
 	<li ng-repeat="car in cars">
 		<span ng-class="$even ? 'even' : 'odd'">#{{$index+1}} - {{car.make}} {{car.model}}</span>
-		<!-- @todo Why not ?? <span ng-class-even="odd" ng-class-odd="even"> mas </span> -->
+		<span ng-class-even="'even'" ng-class-odd="'odd'"> (mas examples) </span> 
 		<span ng-if="$first" > - Lets Begin!!!</span>
 		<span ng-if="$middle"> - Nobyd cares...</span>
 		<span ng-if="$last"> - Thats All!!!</span>
