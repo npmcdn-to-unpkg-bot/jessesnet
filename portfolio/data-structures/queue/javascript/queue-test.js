@@ -58,10 +58,13 @@ describe("queue", function() {
         switch (i) {
           case 0:
             expect(queue.dequeue()).to.equal(422);
+            break;
           case 1:
             expect(queue.dequeue()).to.equal(242);
+            break;
           case 2:
             expect(queue.dequeue()).to.equal(232);
+            break;
         }
 
         i++;
