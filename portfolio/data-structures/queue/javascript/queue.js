@@ -22,7 +22,7 @@
 
       // re-indexes after data.shift(), dont use
       var item = data[i];
-      delete data[i];
+      delete data[i]; // free memory
 
       i++;
       size--;
