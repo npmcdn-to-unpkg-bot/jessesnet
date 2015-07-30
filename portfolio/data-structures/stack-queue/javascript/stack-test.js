@@ -1,5 +1,4 @@
 
-
 var expect = require("chai").expect;
 var stack  = require("./stack.js");
 
