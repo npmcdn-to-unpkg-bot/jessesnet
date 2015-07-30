@@ -1,14 +1,17 @@
 
-var q = require("./queue.js");
+var expect = require("chai").expect;
+var queue  = require("./queue.js");
 
-q.queue(1);
-q.queue(2);
-q.queue(3);
+describe("queue", function() {
+    it ("should accept items", function(){
+    	queue.queue(1);
+    	queue.queue(2);
+    	queue.queue(3);
+   	});
 
-console.log(q.dequeue());
-console.log(q.dequeue());
-
-q.queue(1);
-
-console.log(q.dequeue());
-console.log(q.dequeue());
+   	it ("should remove in FIFO", function() {
+   		expect(queue.dequeue()).to.equal(1);
+   		expect(queue.dequeue()).to.equal(2);
+   		expect(queue.dequeue()).to.equal(3);
+   	});
+});

@@ -1,15 +1,18 @@
 
-var s = require("./stack.js");
 
-s.push(1);
-s.push(2);
-s.push(3);
+var expect = require("chai").expect;
+var stack  = require("./stack.js");
 
-console.log(s.pop());
-console.log(s.pop());
+describe("stack", function() {
+    it ("should accept items", function(){
+    	stack.push(1);
+    	stack.push(2);
+    	stack.push(3);
+   	});
 
-s.push(1);
-
-console.log(s.pop());
-console.log(s.pop());
-
+   	it ("should remove in LIFO", function() {
+   		expect(stack.pop()).to.equal(3);
+   		expect(stack.pop()).to.equal(2);
+   		expect(stack.pop()).to.equal(1);
+   	});
+});
