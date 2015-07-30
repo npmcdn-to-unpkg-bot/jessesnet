@@ -76,3 +76,5 @@ Object.seal(person);
 
 // for a read only object, .isFrozen
 Object.freeze(person);
+
+// https://blog.liip.ch/archive/2014/10/09/why-i-dont-use-the-javascript-new-keyword.html
