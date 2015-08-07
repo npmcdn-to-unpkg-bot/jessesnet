@@ -136,4 +136,42 @@ describe("queue", function() {
             i++;
         }
     });
+
+    it ("should sort numbers", function () {
+        list.reset();
+
+        list.push(123);
+        list.unshift(723);
+        list.push(345);
+        list.push(835);
+        list.push(543);
+        list.unshift(832);
+
+        list.sort();
+
+        expect(list.pop()).to.equal(835);
+        expect(list.pop()).to.equal(832);
+        expect(list.pop()).to.equal(723);
+        expect(list.pop()).to.equal(543);
+        expect(list.pop()).to.equal(345);
+        expect(list.pop()).to.equal(123);
+        expect(list.pop()).to.equal(false);
+    });
+
+    it ("should sort strings", function () {
+        list.reset();
+
+        list.push("buick");
+        list.push("toyota");
+        list.push("kia");
+        list.push("bmw");
+
+        list.sort();
+
+        expect(list.shift()).to.equal("bmw");
+        expect(list.shift()).to.equal("buick");
+        expect(list.shift()).to.equal("kia");
+        expect(list.shift()).to.equal("toyota");
+        expect(list.shift()).to.equal(false);
+    });
 });

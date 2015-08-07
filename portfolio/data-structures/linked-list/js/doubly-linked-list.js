@@ -18,7 +18,7 @@
 	var head    = undefined; // most recent
 	var tail    = undefined; // oldest
 
-	// 0(1) - read current node
+	// 0(1) - read active node, used with iterations
 	exports.read = function () {
 		if (typeof active == "undefined") {
 			return undefined;
@@ -27,7 +27,7 @@
 		return active.data;
 	}
 
-	//  0(n) - iterate tail to head
+	// 0(n) - iterate tail to head
 	exports.iterate = function () {
 		
 		// verify starting point
@@ -53,7 +53,7 @@
 		return true;
 	}
 
-	//  0(n) - iterate head to tail
+	// 0(n) - iterate head to tail
 	exports.reverse = function () {
 		// verify starting point
 		if (typeof head == "undefined") {
@@ -78,7 +78,7 @@
 		return true;
 	}
 
-	//  0(1)
+	// 0(1)
 	exports.push = function (data) {
 		var item  = Object.create(node);
 		item.data = data;
@@ -155,14 +155,37 @@
 		return current.data;
 	}
 
+	// 0(3nlogn)
 	exports.sort = function () {
-		
+
+		var data = [];
+
+		// 0(n)
+		while (this.iterate()) {
+			data.push(this.read());
+		}
+
+		// 0(nlogn)
+		data.sort();
+		this.reset();
+
+		// 0(n)
+		for (var i in data) {
+			this.push(data[i]);
+		}
+	}
+
+	// insert at a position in a linked list
+	exports.insert = function (data, index) {
+
 	}
 
 	// 0(1) - reset the list
 	exports.reset = function () {
 		iterate = false;
-		active  = head = tail = undefined;
+		active  = undefined;
+		head    = undefined;
+		tail    = undefined;
 	}
 
 })();
