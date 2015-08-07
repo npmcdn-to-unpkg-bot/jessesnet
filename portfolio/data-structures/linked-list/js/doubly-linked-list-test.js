@@ -4,14 +4,14 @@ var list   = require("./doubly-linked-list.js");
 
 describe("queue", function() {
     it ("should accept items at head", function(){
-    	list.insertLast(123);
-    	list.insertLast(345);
-    	list.insertLast(835);
-    	list.insertLast(543);
+    	list.push(123);
+    	list.push(345);
+    	list.push(835);
+    	list.push(543);
     });
 
     it ("should iterate tail to head", function(){
-    	var i = 0;
+        var i = 0;
 
     	while (list.iterate()) {
     		
@@ -32,15 +32,22 @@ describe("queue", function() {
 
     		i++;
     	}
+    });
 
-        list.reset();
+    it ("should be able to pop values", function () {
+        expect(list.pop()).to.equal(543);
+        expect(list.pop()).to.equal(835);
+        expect(list.pop()).to.equal(345);
+        expect(list.pop()).to.equal(123);
+        expect(list.pop()).to.equal(false);
     });
 
     it ("should accept items at tail", function(){
-        list.insertFirst(123);
-        list.insertFirst(345);
-        list.insertFirst(835);
-        list.insertFirst(543);
+        list.reset();
+        list.unshift(123);
+        list.unshift(345);
+        list.unshift(835);
+        list.unshift(543);
     });
 
     it ("should iterate head to tail", function(){
@@ -67,14 +74,24 @@ describe("queue", function() {
         }
     });
 
+    it ("should be able to shift values", function () {
+        expect(list.shift()).to.equal(543);
+        expect(list.shift()).to.equal(835);
+        expect(list.shift()).to.equal(345);
+        expect(list.shift()).to.equal(123);
+        expect(list.shift()).to.equal(false);
+    });
+
     it ("should accept items at head or tail", function(){
-        list.insertFirst(123);
-        list.insertLast(345);
-        list.insertLast(835);
-        list.insertFirst(543);
+        list.reset();
+        list.unshift(123);
+        list.push(345);
+        list.push(835);
+        list.unshift(543);
     });
    	
     it ("should iterate head to tail or tail to head", function(){
+
         var i = 0;
 
         while (list.iterate()) {
@@ -84,13 +101,13 @@ describe("queue", function() {
                     expect(list.read()).to.equal(543);
                     break;
                 case 1:
-                    expect(list.read()).to.equal(835);
+                    expect(list.read()).to.equal(123);
                     break;
                 case 2:
                     expect(list.read()).to.equal(345);
                     break;
                 case 3:
-                    expect(list.read()).to.equal(123);
+                    expect(list.read()).to.equal(835);
                     break;
             }
 
@@ -103,13 +120,13 @@ describe("queue", function() {
             
             switch (i) {
                 case 0:
-                    expect(list.read()).to.equal(123);
+                    expect(list.read()).to.equal(835);
                     break;
                 case 1:
                     expect(list.read()).to.equal(345);
                     break;
                 case 2:
-                    expect(list.read()).to.equal(835);
+                    expect(list.read()).to.equal(123);
                     break;
                 case 3:
                     expect(list.read()).to.equal(543);
