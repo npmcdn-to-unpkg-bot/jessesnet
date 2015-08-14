@@ -5,7 +5,7 @@
 	var exports = module.exports = {};
 
 	// node template
-	var obj    = {
+	var leaf = {
 		data:  undefined,
 		left:  undefined,
 		right: undefined
@@ -38,7 +38,7 @@
 
 	exports.push = function(data)
 	{
-		var node  = Object.create(this.obj);
+		var node  = Object.create(leaf);
 		node.data = data;
 
 		// see if tree has started
