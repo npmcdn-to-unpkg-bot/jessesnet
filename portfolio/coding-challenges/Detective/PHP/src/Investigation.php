@@ -21,6 +21,7 @@ class Investigation
     }
 
     /**
+     * Build timeline for a witness
      * @param Witness
      */
     public function interrogate(Witness $witness)
@@ -28,18 +29,18 @@ class Investigation
     	$timeline = [];
     	$events   = $witness->events();
 
-        foreach ($events as $k => $event) {
+        // always look backwards from the first event
+        if (count($events)) {
+            $timeline = $this->reverseTraversal($events[0]);
+        }
 
-            // always have to look back with first event
-            if ($k == 0) {
-                $timeline = $this->validatePastEvent($event);
-            }
+        foreach ($events as $k => $vertex) {
 
             // include what witness saw
-            $timeline[] = $event;
+            $timeline[] = $vertex;
 
             // see if events diverge moving forward
-            $diverge = $this->validateFutureEvent($event, isset($events[($k+1)])?$events[($k+1)]:null);
+            $diverge = $this->traversal($vertex, isset($events[($k+1)])?$events[($k+1)]:null);
 
             // track the timeline
             $timeline = array_merge($timeline, $diverge);
@@ -56,25 +57,27 @@ class Investigation
     	return array_unique($this->timelines);
     }
 
-     /**
-     * Validate timeline with past events
+    /**
+     * Build timeline backwards from event
      * @param  string
      * @return array
      */
-    private function validatePastEvent($event)
+    private function reverseTraversal($vertex)
     {
     	$t  = [];
-    	$in = $this->graph->edgesIn($event);
+    	$in = $this->graph->edgesIn($vertex);
 
-    	// can only use vertexes is at most two versions of story
+    	// can navigate vertexes with at most two versions of story
     	while (count($in) == 1 || count($in) == 2) {
-    		// if a single preceding event, can use it, unless connects somewhere else
+
+    		// if a single preceding event, can use it, unless it connects to multiple nodes
     	    if (count($in) == 1 && count($this->graph->edgesOut($in[0])) == 1) {
     	        array_unshift($t, $in[0]);
-    	        $in = $this->graph->edgesIn($in[0]);
+    	        $in = $this->graph->edgesIn($in[0]); // onto next node
+                continue;
 
-    	    // if two preceding events, can use if connected
-    	    } else {
+    	    // if two preceding events, can use if connected to each other as well
+    	    } elseif (count($in) == 2) {
 
     	        // see if nodes are connectd
     	        if ($this->graph->isConnected($in[0], $in[1]) && count($this->graph->edgesIn($in[1])) == 1) {
@@ -93,9 +96,12 @@ class Investigation
     	        // no more options
     	        return $t;
     	    }
+
+            // no requirements hit
+            return $t;
     	}
 
-    	// if there are multiple accounts can only use if they all match
+    	// if there are multiple stories can only use if they all match exactly
     	if (count($in) > 2 && $this->graph->match($in)) {
     		array_unshift($t, $in[0]);
     	}
@@ -104,20 +110,20 @@ class Investigation
     }
 
     /**
-     * Validate timeline with future events
+     * Build timeline forward from event
      * @param  string
      * @param  string
      * @return array
      */
-    private function validateFutureEvent($event, $future=null)
+    private function traversal($vertex, $future=null)
     {
     	$t   = [];
-    	$out = $this->graph->edgesOut($event);
+    	$out = $this->graph->edgesOut($vertex);
     	
-    	// with only one or two divergences, can make assumptions
+    	// with only one or two divergences, we can make assumptions
     	while (count($out) == 1 || count($out) == 2) {
     	    
-    	    // for two choices
+    	    // for two choices, and future events for this witness
     	    if (!is_null($future) && count($out) == 2) {
 
     	        // dont check self, verify connection, can only be one fork
@@ -132,13 +138,12 @@ class Investigation
     	            continue;
     	        }
 
-    	        // no options
+    	        // no more options
     	        return $t;
     	    }
 
-    	    // for a single choice
+    	    // can use a single choice if its connected back to next element at some point
     	    if (!is_null($future) && count($out) == 1) {
-    	    	// can use it if its connected to next element at some point
     	    	if ($this->graph->isConnected($out[0], $future)) {
     	    		array_push($t, $out[0]);
     	    		$out  = $this->graph->edgesOut($out[0]);
@@ -153,7 +158,7 @@ class Investigation
     	        continue;
     	    }
 
-    	    // end of current timeline, multiple choices, use if end up in same location
+    	    // end of current timeline, multiple choices, use if they are interconnected
     	    if (is_null($future) && count($out) == 2) {
     	    	if ($this->graph->isConnected($out[0], $out[1])) {
     	    		array_push($t, $out[0]);
@@ -170,14 +175,13 @@ class Investigation
     	    // end of timeline, two paths, can use if they match exactly
     	    if (is_null($future) && count($out) == 2 && $this->graph->match($out)) {
     	    	array_push($t, $out[0]);
-    	    	return $t;
     	    }    
 
     	    // no more checks
     	    return $t;
     	}
 
-    	// if there are multiple accounts, can only use if they all match
+    	// if there are multiple accounts of the events, can only use if they all match
     	if (is_null($future) && count($out) > 2 && $this->graph->match($out)) {
     		array_push($t, $out[0]);
     	}

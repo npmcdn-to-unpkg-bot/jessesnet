@@ -38,6 +38,7 @@ class Graph
      */
     public function match(array $vertexes)
     {
+        // could this be more efficient ???
         foreach ($vertexes as $v1) {
             foreach ($vertexes as $v2) {
                 if ($v1 != $v2) {
@@ -110,18 +111,30 @@ class Graph
      */
     public function addEdge($from, $to)
     {
+        // consider different data structure, btree ???
         if (!isset($this->out[$from])) {
             return;
         }
 
-        $this->out[$from][] = $to;
+        // init
+        if (!isset($this->out[$from])) {
+            $this->out[$from] = [];
+        }
 
+        // prevent dupes
+        if (!in_array($to, $this->out[$from])) {
+            $this->out[$from][] = $to;
+        }
+       
         // track edge in to prevent future complexity
         if (!isset($this->in[$to])) {
             $this->in[$to] = [];
         }
 
-        $this->in[$to][] = $from;
+        // prevent dupes
+        if (!in_array($from, $this->in[$to])) {
+            $this->in[$to][] = $from; 
+        }
     }
 
 }

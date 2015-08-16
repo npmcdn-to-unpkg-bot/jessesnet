@@ -43,8 +43,6 @@ foreach ($input as $events) {
  */
 $investigation = new Investigation($graph);
 
-$ts = [];
-
 foreach ($witnesses as $witness) {
 	$investigation->interrogate($witness);
 }

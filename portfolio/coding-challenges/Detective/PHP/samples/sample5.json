@@ -1,10 +1,7 @@
 [
   [
-    "shouting", "fight", "fleeing"
+    "pouring gas", "laughing", "lighting match", "fire"
   ],
-  ["fight", "gunshot", "panic", "fleeing"
-  ],
-  [
-    "anger", "shouting"
+  ["buying gas", "pouring gas", "crying", "fire", "smoke"
   ]
 ]
