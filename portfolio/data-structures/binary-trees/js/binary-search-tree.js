@@ -1,7 +1,6 @@
 
 (function () {
 
-	// http://www.cprogramming.com/tutorial/lesson18.html
 	var exports = module.exports = {};
 
 	// node template
@@ -21,13 +20,13 @@
 		if (node.data < leaf.data) {
 
 			if (typeof leaf.left !== "undefined") {
-				insert(lead.left, node);
+				return insert(lead.left, node);
 			}
 
 			leaf.left = node;
 		} else if (node.data > leaf.data) {
 			if (typeof leaf.right !== "undefined") {
-				insert(leaf.right, node);
+				return insert(leaf.right, node);
 			}
 
 			leaf.right = node;
@@ -42,7 +41,7 @@
 		node.data = data;
 
 		// see if tree has started
-		if (typeof root === "undefined") {
+		if (typeof this.root === "undefined") {
 			this.root = node;
 			return;
 		}
@@ -51,6 +50,11 @@
 		insert(this.root, node);
 	}
 
-})();
+	// O(1) 
+	exports.tree = function ()
+	{
+		return this.root;
+	}
 
+})();
 

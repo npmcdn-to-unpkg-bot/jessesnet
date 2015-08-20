@@ -1,6 +1,0 @@
-{
-	"dependencies": {
-		"mocha": "2.2.5",
-		"chai": "3.2.0"
-	}
-}

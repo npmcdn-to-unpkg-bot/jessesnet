@@ -17,6 +17,7 @@
 	var active  = undefined; // used with iterations
 	var head    = undefined; // most recent
 	var tail    = undefined; // oldest
+	var size    = 0;
 
 	// 0(1) - read active node, used with iterations
 	exports.read = function () {
@@ -90,6 +91,7 @@
 		}
 
 		head = item;
+		size++;
 
 		// single node is both head and tail
 		if (typeof tail == "undefined") {
@@ -104,6 +106,7 @@
 		}
 
 		var current = head;
+		size--;
 
 		// update previous node
 		if (typeof head.prev !== "undefined") {
@@ -128,6 +131,7 @@
 		}
 
 		tail = item;
+		size++;
 
 		// single node is both head and tail
 		if (typeof head == "undefined") {
@@ -142,6 +146,7 @@
 		}
 
 		var current = tail;
+		size--;
 
 		// update next node
 		if (typeof tail.next !== "undefined") {
@@ -175,9 +180,9 @@
 		}
 	}
 
-	// insert at a position in a linked list
-	exports.insert = function (data, index) {
-
+	// 0(1)
+	exports.isEmpty = function () {
+		return size == 0 ? true : false;
 	}
 
 	// 0(1) - reset the list
@@ -186,6 +191,7 @@
 		active  = undefined;
 		head    = undefined;
 		tail    = undefined;
+		size    = 0;
 	}
 
 })();
