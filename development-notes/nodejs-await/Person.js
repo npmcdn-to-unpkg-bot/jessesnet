@@ -24,18 +24,25 @@ class Person
     return this.name;
   }
 
-  async worklong()
+  worklong()
   {
     var self = this;
 
     console.log(self.name+" is working long...");
 
-    await request({
+    return new Promise(function (resolve, reject) {
+
+      request({
         method: 'GET',
         uri: 'https://google.com'
-    }, async function(error, response, body){
-      console.log(self.name+" is working long (DONE)...");
+      }, function(error, response, body){
+        console.log(self.name+" is working long (DONE)...");
+
+        resolve();
+      });
+
     });
+
   }
 
   async workshort()

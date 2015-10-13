@@ -3,11 +3,11 @@ var Person = require('./Person.js');
 
 class Controller
 {
-  action()
+  async action()
   {
     let lisa = new Person('lisa');
     
-    lisa.worklong();
+    await lisa.worklong();
     lisa.workshort();
 
     console.log('continuing on....');

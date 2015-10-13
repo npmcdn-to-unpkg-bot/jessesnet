@@ -1,7 +1,7 @@
 
 require('babel/register')({
-    // optional: ['bluebirdCoroutines'] 
-    optional: ['es7.asyncFunctions']
+    optional: ['bluebirdCoroutines'] 
+    // optional: ['es7.asyncFunctions']
 });
 
 // var dust    = promise.promisifyAll(require("dustjs-helpers")); // wont need w/ es7.asyncFunctions
