@@ -35,6 +35,7 @@
 		return;
 	}
 
+	// O(logn)
 	exports.push = function(data)
 	{
 		var node  = Object.create(leaf);
@@ -48,6 +49,12 @@
 
 		// recursion
 		insert(this.root, node);
+	}
+
+	// 
+	exports.remove = function(data)
+	{
+		// @todo Allow for removal
 	}
 
 	// O(1) 

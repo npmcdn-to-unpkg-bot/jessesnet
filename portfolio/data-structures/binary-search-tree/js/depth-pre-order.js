@@ -29,6 +29,7 @@
 			this.active = this.next;
 		}
 
+		// pre order always goes to the left first
 		if (typeof this.active.left !== "undefined") {
 
 			// queue the right side
