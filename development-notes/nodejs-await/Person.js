@@ -36,18 +36,63 @@ class Person
         method: 'GET',
         uri: 'https://google.com'
       }, function(error, response, body){
-        console.log(self.name+" is working long (DONE)...");
+        
+        setTimeout(function(){
+          console.log(self.name+" is working long (DONE)...");
 
-        resolve();
+          resolve('hielp');
+        }, 2000);
+        
       });
 
     });
 
   }
 
-  async workshort()
+  workshort()
   {
     console.log(this.name+" is working short...");
+  }
+
+  chores ()
+  {
+    // multiple requests but wait
+    let reqs = ['https://google.com','https://google.com','https://google.com'];
+    var self = this;
+
+    return new Promise (function (resolve, reject) {
+
+      let p1 = self.workhorse();
+      let p2 = self.workhorse();
+      let p3 = self.workhorse();
+
+      // wait for all three promises to resolve
+      Promise.all([p1,p2,p3]).then(function () {
+        resolve();  
+      });
+      
+    });
+  }
+
+  workhorse()
+  {
+    console.log('starting...');
+
+    return new Promise(function (resolve, reject) {
+
+      request({
+        method: 'GET',
+        uri: 'https://google.com'
+      }, function(error, response, body){
+        
+        setTimeout(function(){
+          console.log("working hourse (DONE)...");
+          resolve();
+        }, 5000);
+        
+      });
+
+    });
   }
 }
 
