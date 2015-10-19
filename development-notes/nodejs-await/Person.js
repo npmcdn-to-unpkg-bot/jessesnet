@@ -60,11 +60,11 @@ class Person
     let reqs = ['https://google.com','https://google.com','https://google.com'];
     var self = this;
 
-    return new Promise (function (resolve, reject) {
+    return new Promise ((resolve, reject) => {
 
-      let p1 = self.workhorse();
-      let p2 = self.workhorse();
-      let p3 = self.workhorse();
+      let p1 = this.workhorse();
+      let p2 = this.workhorse();
+      let p3 = this.workhorse();
 
       // wait for all three promises to resolve
       Promise.all([p1,p2,p3]).then(function () {
