@@ -58,8 +58,7 @@ class Person
   {
     // multiple requests but wait
     let reqs = ['https://google.com','https://google.com','https://google.com'];
-    var self = this;
-
+  
     return new Promise ((resolve, reject) => {
 
       let p1 = this.workhorse();

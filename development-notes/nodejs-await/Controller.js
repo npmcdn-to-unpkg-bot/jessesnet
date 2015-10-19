@@ -33,6 +33,12 @@ class Controller
 	lisa.workshort();
 
     console.log('continuing on....');
+
+    // or dont wait
+    lisa.chores();
+    lisa.worklong();
+
+    console.log('continuing on....');
   }
 }
 
