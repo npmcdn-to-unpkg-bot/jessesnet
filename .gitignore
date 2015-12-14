@@ -1,0 +1,10 @@
+**/vendor/
+**/node_modules/
+
+**/notes.txt
+
+**/config.php
+
+**/out
+
+**/*.class
