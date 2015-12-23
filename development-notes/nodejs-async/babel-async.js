@@ -1,7 +1,6 @@
 
 let proc = require('child_process');
 
-
 // let worker2 = proc.fork(__dirname+"/worker.js");
 // worker1.send('additional..');
 
@@ -17,7 +16,6 @@ function worker(i) {
   return new Promise ((resolve, reject) => {
     let worker = proc.fork(__dirname+"/worker.js");
     worker.on('message', (d) => {
-      // worker.kill(); // not needed
       resolve(d);
     });
   });
