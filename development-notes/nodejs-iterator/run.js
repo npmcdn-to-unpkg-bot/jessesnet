@@ -18,3 +18,13 @@ for (let person of adressbook) {
   console.log("person:", person.name);
   console.log("info:", `${person.info.city}, ${person.info.state}`);
 }
+
+console.log("\nADDRESS BOOK MAP");
+
+let AdressBookMap = require('./AdressBookMap');
+let adressbookmap = new AdressBookMap();
+
+for (let person of adressbookmap) {
+  console.log("person:", person.name);
+  console.log("info:", `${person.info.city}, ${person.info.state}`);
+}
