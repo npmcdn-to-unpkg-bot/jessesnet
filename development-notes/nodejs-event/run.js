@@ -1,4 +1,6 @@
 
+// https://www.npmjs.com/package/setimmediate
+
 /*
   for (var i=0; i<5000000000; i++) { }
 
