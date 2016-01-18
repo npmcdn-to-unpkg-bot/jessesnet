@@ -16,6 +16,7 @@ let emitter = new events.EventEmitter();
 emitter.on('poot', (data) => {
   console.log('pootin....', data);
   // blocks
+  slow();
 });
 
 emitter.emit('poot', {foo:'baz'});
@@ -31,3 +32,7 @@ emitter.emit('foop', {foo:'baz'});
 
 console.log(emitter.listenerCount('poot'));
 console.log(emitter.listenerCount('foop'));
+
+function slow() {
+  for (var i=0; i<5000000000; i++) { }
+}
