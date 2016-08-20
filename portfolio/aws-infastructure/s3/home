@@ -1,0 +1,13 @@
+
+<html>
+
+  <body>
+    oye aye <span id='timeslot'></span>
+  </body>
+
+  <script language='text/javascript'>
+    document.getElementById('timeslot').innerHTML = Date.now();
+    console.log(Date.now()) 
+  </script>
+
+</html>
